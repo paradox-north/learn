@@ -1,0 +1,80 @@
+赋值(以斐波那契为例）
+def fib(max):
+	n,a,b=0,0,1
+	while(n<max):
+		print(b)
+		a,b,n=b,a+b,n+1
+	return "Done"
+
+默认情况下，dict迭代key,如果要迭代value，可以用for value in d.values()，如果要同时迭代key和value，可以用for k, v in d.items()
+>>> d
+{'a': 1, 'b': 2, 'c': 3}
+>>> d.values()
+dict_values([1, 2, 3])
+>>> d.items()
+dict_items([('a', 1), ('b', 2), ('c', 3)])
+
+for循环时，只要作用于一个可迭代对象，for循环就可以正常运行
+通过collections模块的Iterable类型判断可迭代对象
+>>> from collections import Iterable
+>>> isinstance('abc', Iterable) # str是否可迭代
+True
+>>> isinstance([1,2,3], Iterable) # list是否可迭代
+True
+>>> isinstance(123, Iterable) # 整数是否可迭代
+False
+
+isinstance(a,b)  #判断a是不是b类型
+
+Python内置的enumerate函数可以把一个list变成索引-元素对
+>>> for i, value in enumerate(['A', 'B', 'C']):
+...     print(i, value)
+...
+0 A
+1 B
+2 C
+
+列表生成
+>>> L=[m+n for m in 'abc' for n in 'XYZ']
+>>> L
+['aX', 'aY', 'aZ', 'bX', 'bY', 'bZ', 'cX', 'cY', 'cZ']
+或
+>>> d
+{'a': 1, 'b': 2, 'c': 3}
+>>> L=[m+str(n) for m,n in d.items()]
+>>> L
+['a1', 'b2', 'c3']
+for前面必须是一个表达式，能计算出结果
+>>> [x*x if x%2==0 else -x*2 for x in range(10)]
+[0, -2, 4, -6, 16, -10, 36, -14, 64, -18]
+后置if不需要else，前置if必须要else
+
+生成器generator：在循环时不断推算出后续的元素，而不必创建完整的list
+创建:g=(x*x for x in range(10))   #list的[ ]换成了()
+调用：next(g) 或者
+	 for n in g:
+	 	print(n)
+
+函数---->generator  //遇yield语句返回，再次执行时从yield开始
+def odd():
+    print('step 1')
+    yield 1
+    print('step 2')
+    yield(3)
+    print('step 3')
+    yield(5)
+>>> o = odd()  //调用generator时要先生成一个generator对象，再用next()获得下一个返回值
+>>> next(o)
+step 1
+1     //yield ～ return
+>>> next(o)
+step 2
+3
+>>> next(o)
+step 3
+5
+>>> next(o)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+StopIteration
+同样可以用for循环调用generator函数（复制的generator对象如 O ）
