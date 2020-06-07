@@ -46,3 +46,22 @@ eaadf4e HEAD@{4}: commit (initial): wrote a readme file
 
 < this should be a picture >
 
+远程仓库：
+1、在用户主目录下创建SSH KEY
+$ ssh-keygen -t rsa -C "youremail@example.com"
+出现
+.ssh/
+	id_rsa
+	id_rsa.pub
+2、登录github，点add ssh key，在key文本框中填入id_rsa.pub的内容，title不重要
+3、在Create a new repo中创建新仓库
+4、将本地仓库与github上的仓库关联
+   在本地仓库下运行
+   git remote add origin https://github.com/paradox-north/learn.git
+   远程库的名字为origin
+5、推送本地库所有内容（master分枝）
+   git push -u origin master
+   在第一次推送时，加上了-u参数
+6、以后推送最新修改时，只需
+   git push origin master
+
