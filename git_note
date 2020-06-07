@@ -1,0 +1,48 @@
+git init   //把当前目录变成git可以管理的repository
+
+
+git status   //查看stage（index）暂存区状态
+git diff   //查看work directionary 与 master 内文件不同的内容
+git add <filename>   //提交到暂存区
+git commit -m "illustration"    //将暂存区所有文件提交到仓库，附带说明
+每次commit就是提交了一次版本
+git log    //查看提交日志（--pretty=onrline为精简版）
+git reset --hard HEAD^  //版本回退到HEAD的上一个
+git reset --hard <commit_id> //版本回退到<commit_id>
+
+
+Git的版本回退速度非常快，因为Git在内部有个指向当前版本的HEAD指针，当你回退版本的时候，Git仅仅是把HEAD从指向append GPL：
+
+┌────┐
+│HEAD│
+└────┘
+   │
+   └──> ○ append GPL
+        │
+ 	        ○ add distributed
+        │
+ 	        ○ wrote a readme file
+改为指向add distributed：
+
+┌────┐
+│HEAD│
+└────┘
+   │
+   │    ○ append GPL
+   │    │
+   └──> ○ add distributed
+        │
+      	        ○ wrote a readme file
+      	        
+
+
+git reflog   //查看历史命令
+
+$ git reflog
+e475afc HEAD@{1}: reset: moving to HEAD^      //commit_id 为执行完命令后的id
+1094adb (HEAD -> master) HEAD@{2}: commit: append GPL
+e475afc HEAD@{3}: commit: add distributed
+eaadf4e HEAD@{4}: commit (initial): wrote a readme file
+
+< this should be a picture >
+
